@@ -33,8 +33,19 @@ function displayTemperature(response) {
     iconElement.setAttribute("alt", response.data.weather[0].description)
 }
 
-let apiKey = "bb537f58d9382f2fa8063532554e0b25";
-let city = "New York";
-let apiUrl= `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-console.log(apiUrl);
-axios.get(apiUrl).then(displayTemperature);
+function search(city) {
+    let apiKey = "bb537f58d9382f2fa8063532554e0b25";
+    let apiUrl= `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayTemperature);
+}
+
+function handleSubmit(event) {
+    event.preventDefault();
+    let cityInputElement = document.querySelector("#city-input");
+    search(cityInputElement.value);
+}
+
+search("New York");
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
